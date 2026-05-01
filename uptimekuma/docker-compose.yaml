@@ -1,0 +1,22 @@
+services:
+  uptimekuma:
+    container_name: uptimekuma
+    image: docker.io/louislam/uptime-kuma:2
+    restart: unless-stopped
+    networks:
+      - caddy-network
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./data:/app/data
+      # Uncomment to enable the Docker Container monitor type.
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+networks:
+  caddy-network:
+    external: true
